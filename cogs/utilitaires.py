@@ -61,7 +61,7 @@ class Utilitaires(commands.Cog):
         embed.add_field(name="/help", value="Affiche cette liste de commandes.", inline=False)
         
         await interaction.response.send_message(embed=embed)
-
+    
     
 async def setup(bot):
     await bot.add_cog(Utilitaires(bot))
