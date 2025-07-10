@@ -18,6 +18,8 @@ async def on_ready():
     except Exception as e:
         print(f"Erreur de sync: {e}")
 
+
+
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
@@ -26,8 +28,9 @@ async def on_message(message):
     content_lower = message.content.lower()
     if content_lower.endswith("quoi") or content_lower.endswith("quoi?"):
         await message.reply("FEUR!")
-
     await bot.process_commands(message)
+
+
 
 async def load_extensions():
     for filename in os.listdir('./cogs'):
