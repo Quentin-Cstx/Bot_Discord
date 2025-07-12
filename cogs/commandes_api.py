@@ -1,11 +1,8 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import discord
 from discord.ext import commands, tasks
 from discord import app_commands
-from config import DISCORD_GUILD_ID
+from config import DISCORD_GUILD_ID, DISCORD_CHANNEL_ID_QUOTE_OF_THE_DAY
 import aiohttp
 
 
@@ -16,7 +13,7 @@ class CommandesApi(commands.Cog):
     @tasks.loop(hours=24)
     async def quoteOfTheDay(self):
         api_url = "https://zenquotes.io/api/today"
-        channel = self.bot.get_channel(1392813453609009192)
+        channel = self.bot.get_channel(DISCORD_CHANNEL_ID_QUOTE_OF_THE_DAY)
         async with aiohttp.ClientSession() as session:
             async with session.get(api_url) as response:
                 if response.status != 200:
@@ -46,8 +43,6 @@ class CommandesApi(commands.Cog):
         embed.add_field(name=data[0]['q'], value=data[0]['a'], inline=False)
         embed.set_footer(text="Source: https://zenquotes.io")
         await interaction.response.send_message(embed=embed)
-
-@app_commands.guilds(discord.Object(id=DISCORD_GUILD_ID))
 
 
 async def setup(bot):
