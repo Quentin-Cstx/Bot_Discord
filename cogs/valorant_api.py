@@ -35,7 +35,7 @@ class ValorantApi(commands.Cog):
                 agent_data = data
                 break
         else:
-            await interaction.response.send_message(f"Aucun agent trouvé avec le nom '{agent}'.", ephemeral=True)
+            await interaction.response.send_message(f"Aucun agent trouvé avec le nom '{agent}' (majuscule ou minuscule ne change rien).", ephemeral=True)
             return
         # Création de l'embed avec les informations de l'agent
         embed = discord.Embed(title=agent_data['displayName'], color=discord.Color.blue())

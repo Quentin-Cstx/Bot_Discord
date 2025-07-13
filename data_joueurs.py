@@ -64,6 +64,9 @@ class Database:
         """Supprime toutes les tables et les recrée"""
         self.cursor.execute('DROP TABLE IF EXISTS players')
         self.connection.commit()
+        self.connection.close()
+        self.connection = sqlite3.connect('player_database.db')
+        self.cursor = self.connection.cursor()
         self.init_tables()
         print("Base de données réinitialisée")
 
@@ -80,18 +83,4 @@ class Database:
             level += 1
         return level
     
-def test_database():
-    
-    db = Database()
-    db.reset_database()
-    db.add_player("TestPlayer1", 1)
-    print(db.get_player("TestPlayer1"))
-    db.add_experience("TestPlayer1", 150)
-    print(db.get_player("TestPlayer1"))
-    db.increment_player_level("TestPlayer1")
-    print(db.get_player("TestPlayer1"))
-    db.delete_player("TestPlayer1")
-    print(db.get_player("TestPlayer1"))
 
-if __name__ == "__main__":
-    test_database()
